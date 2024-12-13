@@ -103,7 +103,7 @@
     async function fetchApiData() {
         try {
             // Replace with the desired endpoint from your API
-            const response = await fetch(`${apiBaseUrl}/v2/pet/findByStatus?status=available`);
+            const response = await fetch(`${apiBaseUrl}/api/v3/pet/findByStatus?status=available`);
             if (!response.ok) {
                 throw new Error(`API Error: ${response.status}`);
             }
