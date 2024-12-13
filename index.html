@@ -44,6 +44,13 @@
             bottom: 0;
             width: 100%;
         }
+        .api-data {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -70,6 +77,14 @@
         <p>Proin sed ligula facilisis, malesuada urna a, lacinia odio. Aenean suscipit lacus vel augue volutpat tristique.</p>
     </section>
 
+    <section id="api-data-section">
+        <h2>API Data</h2>
+        <div class="api-data" id="api-data">
+            <!-- API data will be displayed here -->
+            <p>Loading data...</p>
+        </div>
+    </section>
+
     <section id="contact">
         <h2>Contact Us</h2>
         <p>Email: contact@website.com | Phone: +123 456 7890</p>
@@ -79,6 +94,43 @@
 <footer>
     <p>&copy; 2024 My Website. All rights reserved.</p>
 </footer>
+
+<script>
+    // API Base URL
+    const apiBaseUrl = 'https://swagger-api-rac5.onrender.com'; 
+
+    // Function to fetch data from the API
+    async function fetchApiData() {
+        try {
+            // Replace with the desired endpoint from your API
+            const response = await fetch(`${apiBaseUrl}/v2/pet/findByStatus?status=available`);
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status}`);
+            }
+            const data = await response.json();
+            displayApiData(data);
+        } catch (error) {
+            document.getElementById('api-data').innerHTML = `<p style="color: red;">Failed to load data: ${error.message}</p>`;
+        }
+    }
+
+    // Function to display API data
+    function displayApiData(data) {
+        const apiDataContainer = document.getElementById('api-data');
+        if (data && data.length) {
+            apiDataContainer.innerHTML = `
+                <ul>
+                    ${data.map(item => `<li>${item.name} (Status: ${item.status})</li>`).join('')}
+                </ul>
+            `;
+        } else {
+            apiDataContainer.innerHTML = '<p>No data available</p>';
+        }
+    }
+
+    // Fetch data when the page loads
+    window.onload = fetchApiData;
+</script>
 
 </body>
 </html>
