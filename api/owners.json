@@ -1,0 +1,5 @@
+[
+    { "id": 1, "name": "John Doe", "pets": [1, 2] },
+    { "id": 2, "name": "Jane Smith", "pets": [3] }
+  ]
+  
